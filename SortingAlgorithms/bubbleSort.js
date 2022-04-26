@@ -1,4 +1,3 @@
-
 // https://visualgo.net/en/sorting
 
 // Bubble sort, sometimes referred to as sinking sort, is a simple sorting algorithm that repeatedly steps through the list,
