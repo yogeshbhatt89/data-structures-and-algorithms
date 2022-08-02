@@ -1,6 +1,6 @@
 // Merge Sort is a Divide and Conquer algorithm. It divides the input array into two halves, calls itself for the two halves, and then it merges the two sorted halves. The merge() function is used for merging two halves.
 
-// Time complexity O(n log n)
+// Time complexity O(n * log n)
 
 // O(log n) decompositions for the amount of times the array splits
 // O(n) comparisons per decomposition
@@ -9,6 +9,7 @@
 
 
 function merge(arr1, arr2){
+  // time complexity = O(n+m)
   let results = [];
   let i = 0;
   let j = 0;
