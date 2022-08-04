@@ -1,3 +1,14 @@
+/*Binary Search Tree
+
+Big O Time complexity
+##########################################
+inserting O(log n)
+search O(log n)
+##########################################
+
+ */
+
+
 class Node {
   constructor(val) {
     this.val = val;
@@ -11,27 +22,30 @@ class BinarySearchTree {
     this.root = null;
   }
   // method inserts a value into the tree
+  // duplicate values are not stored in this tree
   insert(val) {
     let newNode = new Node(val);
-    if (this.root === null) {
+    if (!this.root) {
       this.root = newNode;
       return this;
     } else {
       let current = this.root;
       while (true) {
-        if (val === current.val) return undefined;
+        if(val === current.val) {// if the node already exists
+           console.log("Value already exists in the Tree")
+           return undefined}
         if (val < current.val) {
-          if (current.left === null) {
+          if (current.left === null) {// if there is no left node then insert the new node here
             current.left = newNode;
             return this;
-          } else {
+          } else {// traverse the left side
             current = current.left;
           }
-        } else if (val > current.val) {
-          if (current.right === null) {
+        } else if(val >current.val){
+          if (current.right === null) {// if there is no right node then insert the new node here
             current.right = newNode;
             return this;
-          } else {
+          } else {// traverse the right side
             current = current.right;
           }
         }
@@ -45,9 +59,9 @@ class BinarySearchTree {
     let current = this.root;
     let found = false;
     while (current && found === false) {
-      if (val < current.val) {
+      if (val < current.val) {//value is less than current search left side
         current = current.left;
-      } else if (val > current.val) {
+      } else if (val > current.val) {//value is greater than current search right side
         current = current.right;
       } else {
         return true;
@@ -64,7 +78,7 @@ console.log(tree.insert(5));
 console.log(tree.insert(13));
 console.log(tree.insert(11));
 console.log(tree.insert(2));
-console.log(tree.insert(16));
+console.log(tree.search(2));
 
-console.log(tree.search(10));
-console.log(tree.search(6));
+// console.log(tree.search(10));
+// console.log(tree.search(6));
