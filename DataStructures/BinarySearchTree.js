@@ -105,7 +105,7 @@ class BinarySearchTree {
   // time complexity O(n)
   // space O(n)
 
- /*
+  /*
             10
        5        13
      2  6     11  15
@@ -123,7 +123,7 @@ class BinarySearchTree {
     inOrder(this.root);
     return array;
   }
-/*
+  /*
             10
        5        13
      2  6     11  15
@@ -141,7 +141,7 @@ class BinarySearchTree {
     preOrder(this.root);
     return array;
   }
-/*
+  /*
             10
        5        13
      2  6     11  15
@@ -159,6 +159,61 @@ class BinarySearchTree {
     postOrder(this.root);
     return array;
   }
+  // find the sum of all the values in the tree
+  // we can use any traversals for this and have a running Sum
+  sumOfTree() {
+    if (this.root === null) return 0;
+    let sum = 0;
+    const postOrder = (root) => {
+      if (root.left) postOrder(root.left);
+      if (root.right) postOrder(root.right);
+      sum += root.val;
+    };
+    postOrder(this.root);
+    return sum;
+  }
+  // find the minimum value in the tree
+  // we can use any traversals and have a running min val to compare
+  // this is postOrder traversal
+  minValTree(root) {
+    if (root === null) return Infinity;
+    return Math.min(
+      this.minValTree(root.left),
+      this.minValTree(root.right),
+      root.val
+    );
+  }
+  // find the max root to leaf path value
+  /*
+            10
+       5        13
+     2  6     11  15
+    Paths-> [10+5+2] [10+5+6] [10+13+11] [10+13+15]
+    [10+13+15] -> 38 max  root to leaf path value
+*/
+  maxPathSum(root) {
+    if (root === null) return -Infinity;
+    if (root.left === null && root.right === null) return root.val;
+    const maxChildPathSum = Math.max(
+      this.maxPathSum(root.left),
+      this.maxPathSum(root.right)
+    );
+    return root.val + maxChildPathSum;
+  }
+  //given the root of the binary tree invert the tree
+    /*
+            10                      10
+       5        13 ------->     13      5
+     2  6     11  15         15   11   6   2
+*/
+  invertTree(root){
+  if (root === null)return null;
+  let left = root.left
+  let right = root.right;
+  root.left = this.invertTree(right);
+  root.right = this.invertTree(left);
+  return root;
+  }
 }
 
 const tree = new BinarySearchTree();
@@ -170,13 +225,15 @@ console.log(tree.insert(6));
 console.log(tree.insert(2));
 console.log(tree.insert(15));
 
-
 // console.log(tree.search(2));
 
 // console.log(tree.search(10));
 // console.log(tree.search(6));
-console.log(tree.dfsInOrder());
-console.log(tree.dfsPreOrder());
-console.log(tree.dfsPostOrder());
-
+// console.log(tree.dfsInOrder());
+// console.log(tree.dfsPreOrder());
+// console.log(tree.dfsPostOrder());
+// console.log(tree.sumOfTree());
+// console.log(tree.minValTree(tree.root));
+// console.log(tree.maxPathSum(tree.root));
+console.log("inverted", tree.invertTree(tree.root))
 // console.log(tree.breathFirstSearch());

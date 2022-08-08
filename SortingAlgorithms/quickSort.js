@@ -1,10 +1,5 @@
-// Like Merge Sort, QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions 
+// Like Merge Sort, QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions
 // the given array around the picked pivot. There are many different versions of quickSort that pick pivot in different ways.
-
-// Always pick first element as pivot (implemented below)
-// Always pick last element as pivot 
-// Pick a random element as pivot.
-// Pick median as pivot.
 
 // Time complexity O(n log n) best case
 
@@ -15,37 +10,37 @@
 
 // Space complexity O(n)
 
-function swap(array, i, j) {
-  const temp = array[j];
-  array[j] = array[i];
-  array[i] = temp;
-}
 
-function pivot(arr, start=0, end=arr.length+1){
-    var pivot = arr[start];
-  var swapIdx = start;
-
-  for(var i = start + 1; i <= end; i++){
-    if(pivot > arr[i]){
-      swapIdx++;
-      swap(arr,swapIdx,i);
-    }
-  }
-  swap(arr,start,swapIdx);
-  return swapIdx;
-}
-
-
-function quickSort(arr, left = 0, right = arr.length -1){
-    if(left < right){
-        let pivotIndex = pivot(arr, left, right)
-        //left
-        quickSort(arr,left,pivotIndex-1);
-        //right
-        quickSort(arr,pivotIndex+1,right);
+const pivot=(arr,left,right)=>{
+  let p = right;
+  let j = left;
+  let i = left-1;
+  
+  while(j <= p){
+      if(arr[j]<arr[p]){
+          i++;
+          [arr[i],arr[j]]= [arr[j],arr[i]] //swap the values at i and j
+          j++
+      }else{
+          j++
       }
-     return arr;
+  }
+  i++
+  [arr[i],arr[p]]= [arr[p],arr[i]] //swap the values at i and p
+
+return i;
 }
+
+const quickSort=(arr,left = 0, right = arr.length-1)=>{
+  if(left < right){
+      let pivotIdx = pivot(arr,left,right)
+      quickSort(arr,left,pivotIdx -1)
+      quickSort(arr, pivotIdx+1,right)
+  }
+  return arr
+}
+
+//last element at index array.length-1 as pivot
 
 console.log(quickSort([8, 5, 2, 9, 5, 6, 3]));
 console.log(
