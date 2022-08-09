@@ -201,18 +201,33 @@ class BinarySearchTree {
     return root.val + maxChildPathSum;
   }
   //given the root of the binary tree invert the tree
-    /*
+  /*
             10                      10
        5        13 ------->     13      5
      2  6     11  15         15   11   6   2
 */
-  invertTree(root){
-  if (root === null)return null;
-  let left = root.left
-  let right = root.right;
-  root.left = this.invertTree(right);
-  root.right = this.invertTree(left);
-  return root;
+  invertTree(root) {
+    if (root === null) return null;
+    let left = root.left;
+    let right = root.right;
+    root.left = this.invertTree(right);
+    root.right = this.invertTree(left);
+    return root;
+  }
+  // given the root of the tree find the length of the  diameter of the tree.
+  // the diameter of  the tree is the length of the longest path between two nodes.
+  diameterOfTree(root) {
+    if (root === null) return 0;
+    let max = 0;
+    const dfs = (root) => {//depth first search
+      if (root === null) return 0;
+      let left = dfs(root.left);
+      let right = dfs(root.right);
+      max = Math.max(left + right, max);
+      return Math.max(left, right) + 1;
+    };
+    dfs(root);
+    return max;
   }
 }
 
@@ -235,5 +250,6 @@ console.log(tree.insert(15));
 // console.log(tree.sumOfTree());
 // console.log(tree.minValTree(tree.root));
 // console.log(tree.maxPathSum(tree.root));
-console.log("inverted", tree.invertTree(tree.root))
+// console.log("inverted", tree.invertTree(tree.root));
+console.log("diameter",tree.diameterOfTree(tree.root))
 // console.log(tree.breathFirstSearch());
